@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#fff0df">
+<link rel="manifest" href="manifest.webmanifest">
+<title>にゃんこ暗記塾</title>
+<style>
+:root{--ink:#633c2b;--pink:#ff8eaa;--blue:#8bcdf3;--green:#a9d96c;--cream:#fff8ed;--line:#f0d8bd;--orange:#ffb34f}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(145deg,#fff7e9,#ffe9df 55%,#fce8f4);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif}
+button,input,select,textarea{font:inherit}button{border:0;cursor:pointer;color:inherit}
+.app{max-width:980px;margin:auto;min-height:100vh;padding:14px 14px 28px}
+header{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fffaf1dd;border:2px solid #f3d9b8;border-radius:22px;padding:12px 16px;box-shadow:0 4px 0 #ead0b1}
+.logo{font-weight:900;font-size:clamp(21px,4vw,30px);letter-spacing:.04em}.level{background:#fff;border-radius:18px;padding:8px 12px;font-weight:800;white-space:nowrap}
+h1,h2,h3,p{margin-top:0}h2{font-size:22px}.panel{background:#fffaf2ed;border:2px solid var(--line);border-radius:24px;padding:16px;box-shadow:0 5px 0 #ead8c2;margin:14px 0}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;align-items:center}
+.catwrap{background:linear-gradient(140deg,#fff1dc,#ffe2e8);border-radius:28px;overflow:hidden;border:3px solid white;box-shadow:0 5px 0 #e9cbb5;position:relative}
+.catwrap img{width:100%;display:block;max-height:390px;object-fit:cover;object-position:center}
+.bubble{background:white;border-radius:24px;padding:13px 16px;text-align:center;font-weight:800;border:2px solid #f5d8b7;margin-bottom:12px}
+.goal{font-size:clamp(25px,5vw,42px);font-weight:900;color:#ec6d8f}.bar{height:15px;background:#f3dfc8;border-radius:20px;overflow:hidden}.bar>i{display:block;height:100%;background:linear-gradient(90deg,#ffb74d,#ff8d9e);width:0%;border-radius:20px;transition:width .3s}
+.actions{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+.big{border-radius:22px;padding:18px 10px;font-weight:900;font-size:clamp(16px,2.6vw,21px);box-shadow:0 5px 0 #d9c3ad;border:2px solid white;min-height:74px}
+.pink{background:#ff9eb5}.blue{background:#9bd7fa}.green{background:#b5df7a}.cream{background:#fff1d8}
+.smallnav{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.smallnav button{background:#fffaf2;border:2px solid #f0dcc4;border-radius:18px;padding:12px 5px;font-weight:800}
+.note{font-size:13px;opacity:.8;line-height:1.55}.hidden{display:none!important}
+input,select,textarea{width:100%;padding:12px;border:2px solid #ead7c2;border-radius:13px;background:#fff;font-size:16px;color:var(--ink);margin:5px 0 12px}
+label{font-weight:800;font-size:14px}textarea{min-height:85px;resize:vertical}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.action{padding:13px 17px;border-radius:15px;background:#ffb0c2;font-weight:900;margin:4px 4px 4px 0}.action.alt{background:#a8dafa}.action.greenbtn{background:#b7df80}.action.gray{background:#eee0d2}
+.question{font-size:22px;font-weight:850;line-height:1.55;white-space:pre-wrap}.quizcat{display:flex;align-items:center;gap:12px;margin:12px 0;padding:8px;background:#fff0e8;border-radius:18px}.quizcat img{width:104px;height:104px;object-fit:cover;border-radius:16px}.choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}.choice{background:#fff;border:2px solid #f0d8bd;border-radius:16px;padding:14px;text-align:left;font-weight:800;min-height:62px}.choice:disabled{opacity:.65}.choice.correct{background:#e5f6d6;border-color:#9dcc72}.choice.wrong{background:#ffe2e6;border-color:#ef8da0}.feedback{padding:12px;border-radius:14px;background:#fff1d8;font-weight:800;margin:10px 0}@keyframes kittyBounce{0%,100%{transform:translateY(0)}45%{transform:translateY(-13px) rotate(3deg)}}@keyframes kittyWiggle{0%,100%{transform:rotate(0)}25%{transform:rotate(-7deg)}75%{transform:rotate(7deg)}}@keyframes kittyPurr{0%,100%{transform:scale(1)}50%{transform:scale(1.045)}}.kitty-bounce{animation:kittyBounce .7s ease}.kitty-wiggle{animation:kittyWiggle .55s ease}.kitty-purr{animation:kittyPurr 1s ease}@media(max-width:520px){.choices{grid-template-columns:1fr}}.answer{background:#fff0d9;border-radius:16px;padding:14px;line-height:1.6;margin:12px 0;white-space:pre-wrap}
+.listitem{background:white;border:1px solid #f0ddc8;border-radius:14px;padding:12px;margin:8px 0}.tag{display:inline-block;background:#ffedf1;border-radius:20px;padding:4px 9px;font-size:12px;margin-right:5px}
+footer{text-align:center;margin-top:18px;font-size:12px;opacity:.7}
+@media(max-width:650px){.hero{grid-template-columns:1fr}.catwrap img{max-height:280px}.actions{grid-template-columns:1fr}.big{min-height:58px}.smallnav{grid-template-columns:repeat(2,1fr)}.row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="app">
+<header><div class="logo">🐾 にゃんこ暗記塾</div><div class="level" id="level">⭐ Lv.1</div></header>
+<main id="home">
+<section class="hero">
+<div class="panel">
+<div class="bubble" id="catMessage">きょうもいっしょにがんばろうにゃ！</div>
+<div style="font-weight:900">📅 今日の目標</div>
+<div class="goal"><span id="done">0</span><span style="font-size:22px;color:#75452d"> / 15 問</span></div>
+<div class="bar"><i id="progress"></i></div>
+<p class="note" id="progressNote">15問クリアしたら、ごはんタイム！</p>
+</div>
+<div class="catwrap"><img src="https://raw.githubusercontent.com/lamemoireromantique/nyankoanki/feature/4choice-cat-review/kitten.png" alt="毛糸で遊ぶふわふわのグレーと白の子猫"></div>
+</section>
+<div class="bubble" id="rewardText">🍚 15問クリアでごはんをあげよう！ そのあとは一緒にあそべるよ</div>
+<div class="actions">
+<button class="big pink" onclick="startQuiz(false)">📖 問題をはじめる</button>
+<button class="big blue" onclick="startQuiz(true)">🔁 復習する</button>
+<button class="big green" onclick="openPlay()">🐾 猫とあそぶ</button>
+</div>
+<div class="smallnav">
+<button onclick="show('stats')">🏆 成績</button><button onclick="show('list')">📝 問題一覧</button><button onclick="show('add')">➕ 問題を登録</button><button onclick="show('backup')">☁️ バックアップ</button>
+</div>
+</main>
+
+<section id="quiz" class="panel hidden">
+<h2 id="quizTitle">今日の復習</h2><div class="note" id="quizCount"></div><div class="quizcat"><img src="https://raw.githubusercontent.com/lamemoireromantique/nyankoanki/feature/4choice-cat-review/kitten.png" alt="いっしょに勉強する子猫"><b id="quizCatMessage">いっしょに考えるにゃ！</b></div>
+<div class="question" id="qText"></div><div id="choiceArea" class="choices"></div><div id="feedback" class="feedback hidden" aria-live="polite"></div>
+<div id="answerArea" class="hidden"><div class="answer"><b>答え</b><div id="aText"></div><hr><b>おぼえるポイント</b><div id="eText"></div></div>
+<p><b>どれくらいできた？</b></p>
+<div id="gradeCorrect" class="hidden"><button class="action greenbtn" onclick="grade('good')">✨ ばっちり！</button><button class="action alt" onclick="grade('unsure')">🙂 正解したけど、あやしい</button></div>
+<div id="gradeWrong" class="hidden"><button class="action" onclick="grade('wrong')">🐾 解説を読んだよ・次へ</button></div>
+</div>
+<button class="action gray" onclick="show('home')">おうちにもどる</button>
+</section>
+
+<section id="add" class="panel hidden">
+<h2>🐾 まちがえた問題を登録</h2>
+<label>科目</label><select id="subject"><option>理科</option><option>社会</option></select>
+<label>単元</label><input id="unit" placeholder="例：水溶液・工業地帯">
+<label>問題文</label><textarea id="question" placeholder="問題を入力"></textarea>
+<label>正解</label><textarea id="answer" placeholder="正解を入力"></textarea><label>まちがいの選択肢①</label><input id="wrong1" placeholder="選択肢①"><label>まちがいの選択肢②</label><input id="wrong2" placeholder="選択肢②"><label>まちがいの選択肢③</label><input id="wrong3" placeholder="選択肢③"><p class="note">4択にするため、正解以外の選択肢も3つ入力してね。</p>
+<label>解説・おぼえるポイント</label><textarea id="explain" placeholder="ポイントを入力（空欄でもOK）"></textarea>
+<label>出典</label><input id="source" placeholder="例：カリテ8回・組分け">
+<button class="action" onclick="saveQuestion()">この問題を登録する</button><button class="action gray" onclick="show('home')">戻る</button>
+<p class="note">写真の登録はありません。間違えた問題だけを手入力してためていこう。</p>
+</section>
+
+<section id="list" class="panel hidden"><h2>📝 問題一覧</h2><div class="row"><select id="filterSubject" onchange="renderList()"><option value="">全科目</option><option>理科</option><option>社会</option></select><input id="search" placeholder="単元・問題を検索" oninput="renderList()"></div><div id="questionList"></div><button class="action gray" onclick="show('home')">戻る</button></section>
+
+<section id="play" class="panel hidden">
+<h2>🐱 いっしょにあそぼう！</h2><div class="catwrap"><img id="playCatImage" src="https://raw.githubusercontent.com/lamemoireromantique/nyankoanki/feature/4choice-cat-review/kitten.png" alt="毛糸で遊ぶ子猫" style="transition:transform .25s,filter .25s"></div>
+<div class="bubble" id="playMessage">毛糸であそぼうにゃ！</div>
+<button class="action" onclick="playAction('yarn')">🧶 毛糸をころころ</button><button class="action alt" onclick="playAction('fish')">🐟 おさかなのおもちゃ</button><button class="action greenbtn" onclick="playAction('pet')">💕 なでなでする</button>
+<p class="note" id="playCount"></p><button class="action gray" onclick="show('home')">おうちにもどる</button>
+</section>
+
+<section id="stats" class="panel hidden"><h2>🏆 がんばりの記録</h2><div id="statsText"></div><button class="action gray" onclick="show('home')">戻る</button></section>
+<section id="backup" class="panel hidden"><h2>☁️ データのバックアップ</h2><p>問題・正誤履歴・復習日・猫の成長をまとめて保存できます。定期的にファイルアプリやiCloud Driveへ保管してください。</p><button class="action alt" onclick="exportData()">バックアップを書き出す</button><label>バックアップを読み込む</label><input type="file" id="importFile" accept=".json,application/json"><button class="action" onclick="importData()">復元する</button><p class="note">復元すると現在のデータに置き換わります。先に現在のデータをバックアップしてください。</p><button class="action gray" onclick="show('home')">戻る</button></section>
+</main>
+<footer>データはこの端末のブラウザに保存されます。SafariのWebサイトデータを消す前にバックアップしてね。</footer>
+</div>
+<script>
+const KEY='nyankoAnkiData';let storageSafe=true;
+const today=()=>new Date().toLocaleDateString('sv-SE');
+const blank=()=>({schemaVersion:2,questions:[],history:[],xp:0,level:1,items:[],daily:{date:today(),done:0,foodClaimed:false},playCount:0});
+let data=load(), session=[],pos=0,current=null,quizChoices=[],answered=false,pickedCorrect=false;
+function load(){const raw=localStorage.getItem(KEY);if(!raw)return blank();try{let x=JSON.parse(raw);if(!x||!Array.isArray(x.questions)||!Array.isArray(x.history))throw Error('invalid data');if(x.schemaVersion===1){localStorage.setItem(KEY+'_backup_before_v2',raw);x.questions=x.questions.map(q=>({...q,options:Array.isArray(q.options)?q.options:[]}));x.schemaVersion=2;return x}if(x.schemaVersion===2)return x;throw Error('unsupported schema')}catch(e){storageSafe=false;setTimeout(()=>alert('保存データの形式を確認できないため、安全のため保存を停止しました。データを上書きしません。バックアップから復元してください。'),0);return blank()}}
+function save(){if(!storageSafe){alert('データ保護のため保存を停止中です。バックアップを確認してください。');return}try{localStorage.setItem(KEY,JSON.stringify(data));renderHome()}catch(e){storageSafe=false;alert('端末への保存に失敗しました。データ保護のため、以後の保存を停止しました。Safariの空き容量を確認し、バックアップを保管してください。')}}
+function daily(){if(data.daily.date!==today())data.daily={date:today(),done:0,foodClaimed:false}}
+function show(id){document.querySelectorAll('main>section').forEach(x=>x.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');if(id==='list')renderList();if(id==='stats')renderStats();if(id==='home')renderHome();window.scrollTo(0,0)}
+function renderHome(){daily();document.getElementById('done').textContent=data.daily.done;document.getElementById('progress').style.width=Math.min(100,data.daily.done/15*100)+'%';document.getElementById('level').textContent='⭐ Lv.'+data.level+'　'+data.xp+' XP';document.getElementById('progressNote').textContent=data.daily.done>=15?'15問クリア！ごほうびタイムだよ！':'あと'+(15-data.daily.done)+'問でごはんタイム！';document.getElementById('rewardText').textContent=data.daily.done>=15?(data.daily.foodClaimed?'🍚 ごはんをあげたよ！猫とあそぼう！':'🍚 15問クリア！ごはんをあげよう！'):'🍚 15問クリアでごはんをあげられるよ！'}
+function saveQuestion(){let opts=[wrong1.value.trim(),wrong2.value.trim(),wrong3.value.trim()];if(!question.value.trim()||!answer.value.trim()){alert('問題文と正解を入力してね');return}if(opts.some(x=>!x)){alert('まちがいの選択肢を3つ入力してね');return}if(new Set([answer.value.trim(),...opts]).size!==4){alert('正解と3つの選択肢はすべて違う内容にしてね');return}let q={id:crypto.randomUUID(),subject:subject.value,unit:unit.value.trim(),question:question.value.trim(),answer:answer.value.trim(),options:opts,explain:explain.value.trim(),source:source.value.trim(),created:today(),attempts:0,correct:0,interval:0,due:today()};data.questions.push(q);[unit,question,answer,wrong1,wrong2,wrong3,explain,source].forEach(x=>x.value='');save();alert('登録できたよ！');show('home')}
+function pickQuestions(reviewOnly){daily();let pool=data.questions.filter(q=>!reviewOnly||q.due<=today());if(!pool.length&&reviewOnly)pool=data.questions.slice();pool.sort((a,b)=>a.due.localeCompare(b.due));session=pool.slice(0,15);pos=0;if(!session.length){alert('まだ問題がないよ。「問題を登録」から間違えた問題を入れてね');show('add');return}if(session.some(q=>!Array.isArray(q.options)||q.options.length!==3||q.options.some(x=>!x))){alert('4択の選択肢が未登録の問題があります。「問題一覧」から編集して、正解以外の選択肢を3つ登録してね。');show('list');return}document.getElementById('quizTitle').textContent=reviewOnly?'🔁 復習タイム':'📖 今日の問題';show('quiz');nextQuestion()}
+function startQuiz(reviewOnly){pickQuestions(reviewOnly)}
+function nextQuestion(){if(pos>=session.length){finishQuiz();return}current=session[pos];document.getElementById('quizCount').textContent=(pos+1)+' / '+session.length+' 問';document.getElementById('qText').textContent=current.question;document.getElementById('aText').textContent=current.answer;document.getElementById('eText').textContent=current.explain||'ポイントの登録はありません';document.getElementById('answerArea').classList.add('hidden');document.getElementById('feedback').classList.add('hidden');document.getElementById('quizCatMessage').textContent='いっしょに考えるにゃ！';answered=false;pickedCorrect=false;document.getElementById('gradeCorrect').classList.add('hidden');document.getElementById('gradeWrong').classList.add('hidden');quizChoices=[current.answer,...(current.options||[]).filter(x=>x&&x!==current.answer)].slice(0,4);while(quizChoices.length<4)quizChoices.push('【未設定】');quizChoices.sort(()=>Math.random()-.5);document.getElementById('choiceArea').innerHTML=quizChoices.map((v,i)=>`<button class="choice" onclick="chooseAnswer(${i})">${String.fromCharCode(65+i)}. ${esc(v)}</button>`).join('')}
+function chooseAnswer(i){if(answered)return;answered=true;let buttons=[...document.querySelectorAll('.choice')],picked=quizChoices[i],correct=picked===current.answer;pickedCorrect=correct;buttons.forEach((b,j)=>{b.disabled=true;if(quizChoices[j]===current.answer)b.classList.add('correct');if(j===i&&!correct)b.classList.add('wrong')});let fb=document.getElementById('feedback');fb.classList.remove('hidden');fb.textContent=correct?'⭕ 正解！よくできたにゃ！':'🐾 おしい！正解は「'+current.answer+'」だよ。解説を読もう';document.getElementById('quizCatMessage').textContent=correct?'やったにゃ！':'だいじょうぶ、一緒に覚えようにゃ！';document.getElementById('answerArea').classList.remove('hidden');document.getElementById(correct?'gradeCorrect':'gradeWrong').classList.remove('hidden')}
+function grade(kind){if(!answered)return;if(pickedCorrect&&!['good','unsure'].includes(kind))return;if(!pickedCorrect&&kind!=='wrong')return;let q=data.questions.find(x=>x.id===current.id);if(!q)return;q.attempts++;q.last=today();let days=kind==='good'?[1,3,7,14,30][Math.min(q.interval||0,4)]:kind==='unsure'?1:0;q.interval=kind==='good'?Math.min((q.interval||0)+1,4):0;q.due=new Date(Date.now()+days*86400000).toLocaleDateString('sv-SE');if(kind==='good')q.correct++;data.history.push({id:q.id,date:today(),grade:kind});data.daily.done++;data.xp+=10;if(data.xp>=data.level*100){data.xp-=data.level*100;data.level++}save();pos++;nextQuestion()}
+function finishQuiz(){show('home');if(data.daily.done>=15&&!data.daily.foodClaimed){let yes=confirm('15問クリア！ごほうびのごはんをあげる？');if(yes){data.daily.foodClaimed=true;data.xp+=20;save();alert('🍚 おいしいごはんをもらって、子猫もごきげん！あそびに行こう！')}}else alert('今日の分、おつかれさま！子猫もよろこんでるよ🐾')}
+function openPlay(){daily();if(data.daily.done>=15&&!data.daily.foodClaimed){if(confirm('先にごはんをあげよう！')){data.daily.foodClaimed=true;data.xp+=20;save()}}document.getElementById('playCount').textContent='いっしょに遊んだ回数：'+data.playCount;show('play')}
+function playAction(kind){let m={yarn:'🧶 毛糸をころころ！子猫が夢中で追いかけてるよ！',fish:'🐟 おさかなのおもちゃをつかまえたにゃ！',pet:'💕 なでなで、うれしいにゃ〜'};let img=document.getElementById('playCatImage');if(img){img.classList.remove('kitty-bounce','kitty-wiggle','kitty-purr');void img.offsetWidth;img.classList.add(kind==='yarn'?'kitty-wiggle':kind==='fish'?'kitty-bounce':'kitty-purr');img.style.filter=kind==='pet'?'brightness(1.08) saturate(1.15)':kind==='fish'?'saturate(1.25)':'none'}document.getElementById('playMessage').textContent=m[kind];data.playCount++;save();document.getElementById('playCount').textContent='いっしょに遊んだ回数：'+data.playCount}
+function renderList(){let f=document.getElementById('filterSubject').value,s=document.getElementById('search').value.toLowerCase();let arr=data.questions.filter(q=>(!f||q.subject===f)&&(!s||(q.unit+q.question+q.source).toLowerCase().includes(s)));document.getElementById('questionList').innerHTML=arr.map(q=>`<div class="listitem"><span class="tag">${esc(q.subject)}</span><span class="tag">${esc(q.unit||'単元未設定')}</span><b>${esc(q.question)}</b><p class="note">正解：${esc(q.answer)}<br>次回復習：${esc(q.due)}　出典：${esc(q.source||'未設定')}</p><button class="action gray" onclick="editQuestion('${q.id}')">編集</button><button class="action" onclick="deleteQuestion('${q.id}')">削除</button></div>`).join('')||'まだ問題がありません'}
+function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function deleteQuestion(id){if(confirm('この問題を削除する？')){data.questions=data.questions.filter(q=>q.id!==id);save();renderList()}}
+function editQuestion(id){let q=data.questions.find(x=>x.id===id);let v=prompt('問題文を編集',q.question);if(v===null)return;let a=prompt('正解を編集',q.answer);if(a===null)return;let o1=prompt('まちがいの選択肢①',q.options?.[0]||'');if(o1===null)return;let o2=prompt('まちがいの選択肢②',q.options?.[1]||'');if(o2===null)return;let o3=prompt('まちがいの選択肢③',q.options?.[2]||'');if(o3===null)return;if(![a,o1,o2,o3].every(x=>x.trim())||new Set([a.trim(),o1.trim(),o2.trim(),o3.trim()]).size!==4){alert('正解と3つの選択肢はすべて異なる内容で入力してね');return}q.question=v;q.answer=a;q.options=[o1,o2,o3];save();renderList()}
+function renderStats(){let n=data.questions.length,h=data.history.length,g=data.history.filter(x=>x.grade==='good').length;document.getElementById('statsText').innerHTML=`<div class="goal">${n} 問</div>登録した問題数<p>解答した回数：${h}<br>ばっちり正解：${g}<br>猫のレベル：Lv.${data.level}<br>いっしょに遊んだ回数：${data.playCount}</p>`}
+function exportData(){let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='nyanko-backup-'+today()+'.json';a.click();URL.revokeObjectURL(a.href)}
+function importData(){let f=document.getElementById('importFile').files[0];if(!f){alert('バックアップファイルを選んでね');return}let r=new FileReader();r.onload=()=>{try{let x=JSON.parse(r.result);if(!x||![1,2].includes(x.schemaVersion)||!Array.isArray(x.questions)||!Array.isArray(x.history))throw Error('invalid backup');if(!confirm('現在のデータを自動退避してから、読み込んだ内容に置き換えます。続ける？'))return;let backupKey=KEY+'_backup_before_import_'+Date.now();localStorage.setItem(backupKey,localStorage.getItem(KEY)||'');let restored={...x,questions:x.questions.map(q=>({...q,options:Array.isArray(q.options)?q.options:[]})),schemaVersion:2};localStorage.setItem(KEY,JSON.stringify(restored));data=restored;storageSafe=true;renderHome();alert('復元できたよ！')}catch(e){alert('復元できませんでした。保存領域などを確認してください。現在の保存データは置き換えていません。')}};r.readAsText(f)}
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}
+renderHome();
+</script>
+</body></html>
